@@ -10,6 +10,13 @@ public class MensajeJson {
 
     public MensajeJson(){ }
 
+    public MensajeJson(LocalDateTime fecha, int idDisp, float temperatura, float humedad){
+        this.fechaGeneracion = fecha;
+        this.idDispositivo = idDisp;
+        this.temperatura = temperatura;
+        this.humedad = humedad;
+    }
+
     public LocalDateTime getFechaGeneracion() { return fechaGeneracion; }
 
     public void setFechaGeneracion(LocalDateTime fechaGeneracion) { this.fechaGeneracion = fechaGeneracion; }

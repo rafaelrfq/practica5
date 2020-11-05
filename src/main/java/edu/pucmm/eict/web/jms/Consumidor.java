@@ -1,11 +1,12 @@
 package edu.pucmm.eict.web.jms;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.jms.*;
+import java.time.LocalDateTime;
 
 public class Consumidor {
     @Autowired MensajeServices mensajeServices;
@@ -33,8 +34,15 @@ public class Consumidor {
                 TextMessage msg = (TextMessage) message;
                 System.out.println("Mensaje recibido: \n\n" + msg.getText());
                 ObjectMapper objectMapper = new ObjectMapper();
-                objectMapper.registerModule(new JavaTimeModule());
-                MensajeJson mensaje = objectMapper.readValue(msg.getText(), MensajeJson.class);
+                String json = msg.getText();
+                JsonNode jsonNode = objectMapper.readTree(json);
+                MensajeJson mensaje = new MensajeJson();
+                mensaje.setFechaGeneracion(LocalDateTime.parse(jsonNode.get("fechaGeneracion").asText()));
+                mensaje.setIdDispositivo(Integer.parseInt(jsonNode.get("idDispositivo").asText()));
+                mensaje.setHumedad(Float.parseFloat(jsonNode.get("humedad").asText()));
+                mensaje.setTemperatura(Float.parseFloat(jsonNode.get("temperatura").asText()));
+                // MensajeJson mensaje = objectMapper.readValue(msg.getText(), MensajeJson.class);
+                System.out.println(mensaje.getFechaGeneracion().toString());
                 mensajeServices.crearMensaje(mensaje);
             } catch (Exception e) {
                 e.printStackTrace();
