@@ -21,6 +21,7 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
     compile group: 'org.apache.activemq', name: 'activemq-spring', version: '5.15.1'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.3'
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.11.3'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }

@@ -1,6 +1,7 @@
 package edu.pucmm.eict.web.jms;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -32,6 +33,7 @@ public class Consumidor {
                 TextMessage msg = (TextMessage) message;
                 System.out.println("Mensaje recibido: \n\n" + msg.getText());
                 ObjectMapper objectMapper = new ObjectMapper();
+                objectMapper.registerModule(new JavaTimeModule());
                 MensajeJson mensaje = objectMapper.readValue(msg.getText(), MensajeJson.class);
                 mensajeServices.crearMensaje(mensaje);
             } catch (Exception e) {
