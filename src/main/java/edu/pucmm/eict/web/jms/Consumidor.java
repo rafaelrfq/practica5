@@ -15,13 +15,14 @@ public class Consumidor {
 
     public void conectar() throws JMSException {
 
-        factory = new ActiveMQConnectionFactory("admin", "admin", "failover:tcp://localhost:61616");
+        factory = new ActiveMQConnectionFactory("admin", "admin", "failover:tcp://servidor:61616");
 
         connection = factory.createConnection();
         connection.start();
 
         session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
+        topic = session.createTopic("notificacion_sensores");
         consumer = session.createConsumer(topic);
         consumer.setMessageListener(message -> {
             try {

@@ -1,0 +1,54 @@
+# Docker compose version used
+version: '3.8'
+# Services or containers to be used
+services:
+  servidor:
+    image: rafaelrfq/practica5-jms
+    environment:
+      - OPTION=1
+    ports:
+    - 61616:61616
+    networks:
+      - jms-network
+
+  cliente1:
+    image: rafaelrfq/practica5-jms
+    environment:
+      - ID=1
+      - OPTION=2
+    ports:
+    - 61616:61616
+    networks:
+      - jms-network
+    depends_on:
+      - servidor
+
+  cliente2:
+    image: rafaelrfq/practica5-jms
+    environment:
+      - ID=2
+      - OPTION=2
+    ports:
+      - 61616:61616
+    networks:
+      - jms-network
+    depends_on:
+      - servidor
+
+  app-web:
+    image: rafaelrfq/practica5-web
+    ports:
+    - 80:8080
+    - 61616:61616
+    networks:
+      - jms-network
+    volumes:
+    - jms-volume:/tmp/
+    depends_on:
+      - servidor
+
+networks:
+  jms-network:
+
+volumes:
+  jms-volume:
