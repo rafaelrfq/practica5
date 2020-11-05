@@ -1,10 +1,13 @@
 package edu.pucmm.eict.web.jms;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.jms.*;
 
 public class Consumidor {
+    @Autowired MensajeServices mensajeServices;
     ActiveMQConnectionFactory factory;
     Connection connection;
     Session session;
@@ -28,6 +31,9 @@ public class Consumidor {
             try {
                 TextMessage msg = (TextMessage) message;
                 System.out.println("Mensaje recibido: \n\n" + msg.getText());
+                ObjectMapper objectMapper = new ObjectMapper();
+                MensajeJson mensaje = objectMapper.readValue(msg.getText(), MensajeJson.class);
+                mensajeServices.crearMensaje(mensaje);
             } catch (Exception e) {
                 e.printStackTrace();
             }
