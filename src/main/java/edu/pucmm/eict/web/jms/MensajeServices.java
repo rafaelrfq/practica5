@@ -21,7 +21,7 @@ public class MensajeServices {
     }
 
     public Mensaje findMensajeById(long id){
-        return mensajeRepository.findByIdNotNull(id);
+        return mensajeRepository.findById(id);
     }
 
     public List<Mensaje> findAllMensajes(){
