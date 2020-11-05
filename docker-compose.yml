@@ -19,7 +19,7 @@ services:
     networks:
       - jms-network
     depends_on:
-      - servidor
+      - app-web
 
   cliente2:
     image: rafaelrfq/practica5-jms
@@ -29,7 +29,7 @@ services:
     networks:
       - jms-network
     depends_on:
-      - servidor
+      - app-web
 
   app-web:
     image: rafaelrfq/practica5-web
