@@ -16,8 +16,6 @@ services:
     environment:
       - ID=1
       - OPTION=2
-    ports:
-    - 61616:61616
     networks:
       - jms-network
     depends_on:
@@ -28,8 +26,6 @@ services:
     environment:
       - ID=2
       - OPTION=2
-    ports:
-      - 61616:61616
     networks:
       - jms-network
     depends_on:
@@ -39,7 +35,6 @@ services:
     image: rafaelrfq/practica5-web
     ports:
     - 80:8080
-    - 61616:61616
     networks:
       - jms-network
     volumes:
