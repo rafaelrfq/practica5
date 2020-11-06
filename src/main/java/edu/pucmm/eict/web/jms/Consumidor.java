@@ -4,19 +4,22 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.jms.*;
 import java.time.LocalDateTime;
 
 public class Consumidor {
-    @Autowired MensajeServices mensajeServices;
+    MensajeServices mensajeServices;
     ActiveMQConnectionFactory factory;
     Connection connection;
     Session session;
     Topic topic;
     MessageConsumer consumer;
 
-    public Consumidor() { }
+    public Consumidor(MensajeServices mensajeServices) {
+        this.mensajeServices = mensajeServices;
+    }
 
     public void conectar() throws JMSException {
 
