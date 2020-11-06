@@ -14,7 +14,7 @@ services:
   cliente1:
     image: rafaelrfq/practica5-jms
     environment:
-      - ID=1
+      - ID_DISP=1
       - OPTION=2
     networks:
       - jms-network
@@ -24,7 +24,7 @@ services:
   cliente2:
     image: rafaelrfq/practica5-jms
     environment:
-      - ID=2
+      - ID_DISP=2
       - OPTION=2
     networks:
       - jms-network
